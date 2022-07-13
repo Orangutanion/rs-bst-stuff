@@ -1,25 +1,22 @@
-/// Reference for children nodes. Nullable and all nodes will live on heap.
-type Child = Option<Box>;
-
 /// Each node can point to two subsequent nodes: one whose value is less, one whose value is greater.
 /// This implementation won't allow two nodes of the same value.
 struct Node<T: Ord + Copy> {
     data: T,
-    lhs: Child<T>,
-    rhs: Child<T>,
+    lhs: Option<Box<T>>,
+    rhs: Option<Box<T>>,
 }
 
 /// Entrypoint for BST. This buffer lives on the stack.
 pub struct BST<T: Ord + Copy> {
     pub size: usize,
-    head: Child<T>,
-    min: Child<T>,
-    max: Child<T>,
+    head: Option<Box<T>>,
+    min: Option<Box<T>>,
+    max: Option<Box<T>>,
 }
 
 impl<T: Ord + Copy> BST<T> {
     /// Create empty BST. This should also be run by default trait.
-    pub fn new() -> self {
+    pub fn new() -> Self {
         return BST {
             size: 0,
             head: None,
@@ -29,7 +26,7 @@ impl<T: Ord + Copy> BST<T> {
     }
 
     /// Create a BST from an existing item
-    pub fn from(first: &T) -> self {
+    pub fn from(first: &T) -> Self {
         unimplemented!();
     }
 
